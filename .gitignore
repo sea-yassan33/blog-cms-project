@@ -1,0 +1,7 @@
+# エディタ設定
+.cursor/
+.vscode/*
+
+#　チーム共有ファイルは追跡
+!.vscode/extensions.json
+!.vscode/settings.json

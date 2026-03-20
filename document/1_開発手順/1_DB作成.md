@@ -9,7 +9,7 @@ psql -U postgres
 CREATE DATABASE blog_cms_db ENCODING 'UTF8';
 
 ## 新しいユーザー（ロール）の作成
-CREATE USER blog_cms_user WITH PASSWORD 'blog_cms_pw';
+CREATE USER blog_cms_user WITH PASSWORD 'blog_cms_user';
 
 ## 権限の付与
 GRANT ALL PRIVILEGES ON DATABASE blog_cms_db TO blog_cms_user;

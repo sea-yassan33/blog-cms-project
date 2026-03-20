@@ -15,7 +15,7 @@ npm create payload-app@latest
 ◇  Select a database
 │  PostgreSQL
 ◆  Enter PostgreSQL connection string
-│  postgres://blog_cms_user:blog_cms_pw@127.0.0.1:{ポート番号}/blog_cms_db
+│  postgres://blog_cms_user:blog_cms_user@127.0.0.1:{ポート番号}/blog_cms_db
 
 ```
 ## 2.TailsindCSSの導入
@@ -24,6 +24,7 @@ npm create payload-app@latest
 
 - 下記のコマンドで関連のモジュールをインストール
 ```sh
+cd blog-cms/
 npm install tailwindcss @tailwindcss/postcss postcss
 ```
 
