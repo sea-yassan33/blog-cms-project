@@ -17,6 +17,7 @@
 
 - blog-cms\src\collections\Media.ts
 
+[Mediaコレクション](../../blog-cms/src/collections/Media.ts)
 
 ## 3-4.Likesコレクション（イイね）
 
@@ -30,6 +31,6 @@
 
 - blog-cms\src\collections\Comments.ts
 
-[Likesコレクション](../../blog-cms/src/collections/Comments.ts)
+[Commentsコレクション](../../blog-cms/src/collections/Comments.ts)
 
 ※　型エラーがでるが、一旦スルーします。

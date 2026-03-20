@@ -12,6 +12,7 @@
 | shadcn/ui | UI コンポーネント |
 | Payload CMS | ヘッドレス CMS |
 | PostgreSQL | データベース |
+| LangChain | AIエージェント |
 
 ## 実装機能
 - 【管理画面】
