@@ -29,6 +29,15 @@ export const Posts: CollectionConfig = {
       label: 'タイトル',
     },
     {
+      name: 'aiGenerate',
+      type: 'ui',
+      admin: {
+        components: {
+          Field: '@/components/admin/AIGenerateButton#AIGenerateButton',
+        },
+      },
+    },
+    {
       name: 'slug',
       type: 'text',
       required: true,

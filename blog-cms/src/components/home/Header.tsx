@@ -7,7 +7,7 @@ export default function Header() {
           Blog CMS Sample
         </Link>
         <nav>
-          <Link href="/blog" className="text-sm hover:underline mx-2">
+          <Link href="/" className="text-sm hover:underline mx-2">
             記事一覧
           </Link>
           <Link href="/admin" className="text-sm hover:underline">

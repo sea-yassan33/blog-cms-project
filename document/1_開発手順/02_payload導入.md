@@ -16,7 +16,9 @@ npm create payload-app@latest
 │  PostgreSQL
 ◆  Enter PostgreSQL connection string
 │  postgres://blog_cms_user:blog_cms_user@127.0.0.1:{ポート番号}/blog_cms_db
-
+│
+◇  Found latest version of Payload 3.79.1
+│
 ```
 ## 2-2.TailsindCSSの導入
 

@@ -12,4 +12,7 @@ npx shadcn@latest add  button card badge separator
 npm install @payloadcms/translations
 npm add @payloadcms/email-nodemailer nodemailer
 npm i --save-dev @types/nodemailer
+
+# 8.AI記事自動生成機能
+npm install @langchain/google-genai @langchain/core langchain
 ```
