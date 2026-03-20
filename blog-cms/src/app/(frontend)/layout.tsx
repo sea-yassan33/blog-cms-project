@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/home/Header";
+import Footer from "@/components/home/Footer";
 
 export const metadata: Metadata = {
   title: "blogCMS|ブログCMS",
@@ -23,7 +25,9 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-screen bg-white">
-        {children}
+        <Header/>
+          {children}
+        <Footer/>
       </body>
     </html>
   );
