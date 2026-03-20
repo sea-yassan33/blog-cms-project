@@ -18,7 +18,7 @@ npm create payload-app@latest
 │  postgres://blog_cms_user:blog_cms_user@127.0.0.1:{ポート番号}/blog_cms_db
 
 ```
-## 2.TailsindCSSの導入
+## 2-2.TailsindCSSの導入
 
 ### TailsindCSS関連のモジュールをインストール
 
@@ -43,13 +43,13 @@ export default {
 - 【新規作成】src\app\(frontend)\globals.css
   - [サンプル](./sample/globals.css)
 
-### shadcn/ui の導入
+## 2-3.shadcn/ui の導入
 
 - 下記のコマンドで関連のモジュールをインストール
 ```sh
 ## ui.shadcn
 ## https://ui.shadcn.com/
 npx shadcn@latest init -d
-npx shadcn@latest add  button card badge separator
+npx shadcn@latest add  button card badge separator avatar textarea
 
 ```
