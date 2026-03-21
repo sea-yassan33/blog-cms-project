@@ -64,3 +64,8 @@ blog-cms/
 ├── postcss.config.mjs
 └── tsconfig.json
 ```
+
+## CloudCodeによる草案作成
+
+- [プロジェクト草案](./document/0_草案_プロンプト/1_プロジェクト草案.md)
+- [フロント画面（記事一覧）の画面修正提案](./document/0_草案_プロンプト/2_フロント画面修正案01.md)
