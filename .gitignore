@@ -1,7 +1,10 @@
-# エディタ設定
+# 追跡対象外
+zz_dev
+zz_dev/*
+
+# 【追跡対象外】エディタ設定
 .cursor/
 .vscode/*
-
-#　チーム共有ファイルは追跡
+#【追跡対象】チーム共有ファイル
 !.vscode/extensions.json
 !.vscode/settings.json

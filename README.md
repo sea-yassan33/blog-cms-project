@@ -37,13 +37,13 @@ blog-cms/
 │   │   │   └── page.tsx         # 記事一覧ページ
 │   │   ├── (payload)/           # Payload 管理画面（自動生成）
 │   │   │   └── admin/
-│   │   └── api/
+│   │   ├── api/
 │   │   │   ├── comments/
 │   │   │   │   └── route.ts     # コメントAPI-Route
 │   │   │   ├── generate-content/
 │   │   │   │   └── route.ts     # 記事自動生成API-Route
 │   │   │   ├── likes/
-│   │   │   │   └── route.ts     # いいねAPI-Route
+│   │   │__ │   └── route.ts     # いいねAPI-Route
 │   ├── collections/
 │   │   ├── Users.ts
 │   │   ├── Posts.ts
@@ -51,14 +51,14 @@ blog-cms/
 │   │   ├── Likes.ts
 │   │   └── Comments.ts
 │   ├── components/
-│   │   └── admin/
+│   │   ├── admin/
 │   │   │   ├── AIGenerateButtonGenerateButton/
 │   │   │   │   └── index.tsx     # 記事自動生成ボタン
-│   │   └── parts/
+│   │   ├── parts/
 │   │   │   ├──  LikeButton.tsx
 │   │   │   ├──  CommentSection.tsx
-│   │   │   ├──  richText.tsx
-│   └── payload.config.ts
+│   │   │__ └──  richText.tsx
+│   └── payload.config.ts         # CMS設定ファイル
 ├── .env
 ├── package.json
 ├── postcss.config.mjs

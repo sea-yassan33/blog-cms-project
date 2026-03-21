@@ -5,6 +5,7 @@ import { LikeButton } from '@/components/parts/LikeButton'
 import { CommentSection } from '@/components/parts/CommentSection'
 import { RichText } from '@/components/parts/richText'
 import Link from 'next/link'
+import Header from '@/components/home/Header'
 
 // propsの定義
 type Props = { params: Promise<{ slug: string }> }
@@ -41,7 +42,9 @@ export default async function BlogDetailPage({ params }: Props) {
   })
 
   return (
-    <article className="max-w-2xl mx-auto">
+    <>
+    <Header/>
+    <article className="max-w-2xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
 
       {post.publishedAt && (
@@ -76,5 +79,6 @@ export default async function BlogDetailPage({ params }: Props) {
         ← 記事一覧に戻る
       </Link>
     </article>
+    </>
   )
 }
