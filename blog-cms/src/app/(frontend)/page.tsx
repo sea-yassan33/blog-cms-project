@@ -7,7 +7,6 @@ import AuthorAvatar from '@/components/parts/AuthorAvatar'
 import SidebarItem from '@/components/parts/SidebarItem'
 import FilterChip from '@/components/parts/FilterChip'
 import IconHome from '@/components/icons/IconHome'
-import IconDoc from '@/components/icons/IconDoc'
 import IconCalendar from '@/components/icons/IconCalender'
 import IconSettings from '@/components/icons/IconSettings'
 

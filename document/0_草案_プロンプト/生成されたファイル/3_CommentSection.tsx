@@ -1,10 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 interface Comment {
   id: string
@@ -83,6 +79,7 @@ export function CommentSection({ postId, initialComments }: CommentSectionProps)
             </span>
           </h2>
         </div>
+
         {/* コメント一覧 */}
         <div>
           {comments.length === 0 ? (
@@ -113,6 +110,7 @@ export function CommentSection({ postId, initialComments }: CommentSectionProps)
                       {comment.userName?.charAt(0)?.toUpperCase() || '?'}
                     </div>
                   </div>
+
                   {/* コメント本体 */}
                   <div className="flex-1 min-w-0">
                     {/* ヘッダー行 */}
@@ -142,6 +140,7 @@ export function CommentSection({ postId, initialComments }: CommentSectionProps)
             </div>
           )}
         </div>
+
         {/* コメント投稿フォーム */}
         <div className="border-t border-[#dfe1e6] bg-[#fafbfc] px-5 py-4">
           <div className="flex gap-3">
@@ -154,6 +153,7 @@ export function CommentSection({ postId, initialComments }: CommentSectionProps)
                 </svg>
               </div>
             </div>
+
             <div className="flex-1">
               <p className="text-xs text-[#97a0af] mb-2">
                 ※ コメントは登録ユーザーのみ投稿できます（

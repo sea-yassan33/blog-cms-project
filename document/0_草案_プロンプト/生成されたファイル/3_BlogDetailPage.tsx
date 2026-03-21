@@ -7,7 +7,6 @@ import { RichText } from '@/components/parts/richText'
 import Link from 'next/link'
 import Header from '@/components/home/Header'
 
-// propsの定義
 type Props = { params: Promise<{ slug: string }> }
 
 export default async function BlogDetailPage({ params }: Props) {
@@ -27,27 +26,30 @@ export default async function BlogDetailPage({ params }: Props) {
   const post = result.docs[0]
   if (!post) notFound()
 
-  // イイね数を取得
   const likes = await payload.find({
     collection: 'likes',
     where: { post: { equals: post.id } },
   })
 
-  // コメントを取得
   const comments = await payload.find({
     collection: 'comments',
     where: { post: { equals: post.id } },
-    sort: 'createdAt', // 古い順
+    sort: 'createdAt', // 古い順（下に積み重なっていく）
     depth: 1,
   })
 
-  const authorName =post.author && typeof post.author === 'object'? (post.author as any).name ?? '不明': '不明'
+  const authorName =
+    post.author && typeof post.author === 'object'
+      ? (post.author as any).name ?? '不明'
+      : '不明'
 
   return (
     <>
       <Header />
+
       {/* ページ全体の背景 */}
       <div className="min-h-screen bg-[#f4f5f7]">
+
         {/* パンくずナビ */}
         <div className="bg-white border-b border-[#dfe1e6] px-6 py-2">
           <nav className="max-w-5xl mx-auto flex items-center gap-1 text-xs text-[#5e6c84]">
@@ -62,10 +64,13 @@ export default async function BlogDetailPage({ params }: Props) {
             <span className="text-[#172b4d] font-medium truncate max-w-xs">{post.title}</span>
           </nav>
         </div>
+
         {/* メインコンテンツ */}
         <div className="max-w-5xl mx-auto px-4 py-6 flex gap-6">
+
           {/* 左カラム：記事本体 */}
           <main className="flex-1 min-w-0">
+
             {/* 記事ヘッダーカード */}
             <div className="bg-white rounded border border-[#dfe1e6] mb-4">
               {/* タイトルバー */}
@@ -104,6 +109,7 @@ export default async function BlogDetailPage({ params }: Props) {
                   </span>
                 </div>
               </div>
+
               {/* 本文エリア */}
               <div className="px-6 py-6">
                 {post.excerpt && (
@@ -138,6 +144,7 @@ export default async function BlogDetailPage({ params }: Props) {
                 </Link>
               </div>
             </div>
+
             {/* コメントセクション */}
             <CommentSection
               postId={String(post.id)}
@@ -149,6 +156,7 @@ export default async function BlogDetailPage({ params }: Props) {
               }))}
             />
           </main>
+
           {/* 右サイドバー */}
           <aside className="w-56 flex-shrink-0 hidden lg:block">
             <div className="bg-white rounded border border-[#dfe1e6] overflow-hidden">
@@ -164,9 +172,10 @@ export default async function BlogDetailPage({ params }: Props) {
                     公開中
                   </span>
                 </div>
-                {/* 記事投稿者*/}
+
+                {/* 著者 */}
                 <div className="px-4 py-3">
-                  <p className="text-[10px] font-semibold text-[#5e6c84] uppercase tracking-wide mb-1.5">記事投稿者</p>
+                  <p className="text-[10px] font-semibold text-[#5e6c84] uppercase tracking-wide mb-1.5">著者</p>
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 rounded-full bg-[#0052cc] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
                       {authorName.charAt(0)?.toUpperCase() || '?'}
@@ -174,6 +183,7 @@ export default async function BlogDetailPage({ params }: Props) {
                     <span className="text-xs text-[#172b4d] font-medium truncate">{authorName}</span>
                   </div>
                 </div>
+
                 {/* 公開日 */}
                 {post.publishedAt && (
                   <div className="px-4 py-3">
@@ -187,11 +197,13 @@ export default async function BlogDetailPage({ params }: Props) {
                     </p>
                   </div>
                 )}
+
                 {/* いいね数 */}
                 <div className="px-4 py-3">
                   <p className="text-[10px] font-semibold text-[#5e6c84] uppercase tracking-wide mb-1">いいね</p>
                   <p className="text-xs text-[#172b4d] font-semibold">{likes.totalDocs} 件</p>
                 </div>
+
                 {/* コメント数 */}
                 <div className="px-4 py-3">
                   <p className="text-[10px] font-semibold text-[#5e6c84] uppercase tracking-wide mb-1">コメント</p>
@@ -200,6 +212,7 @@ export default async function BlogDetailPage({ params }: Props) {
               </div>
             </div>
           </aside>
+
         </div>
       </div>
     </>
