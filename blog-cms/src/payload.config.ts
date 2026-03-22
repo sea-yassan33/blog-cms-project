@@ -12,6 +12,7 @@ import { Posts } from './collections/Posts'
 import { Media } from './collections/Media'
 import { Likes } from './collections/Likes'
 import { Comments } from './collections/Comments'
+import { Pages } from './collections/Pages'
 // 以下：英語と日本語を使える様にモジュール読み込ませる
 import { en } from '@payloadcms/translations/languages/en'
 import { ja } from '@payloadcms/translations/languages/ja'
@@ -26,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     // @ts-expect-error: CSSはPayload v3の型定義には含まれていませんが、実行時には動作します。
-    css: path.resolve(__dirname, './app/(payload)/custom.scss'),
+    css: path.resolve(dirname, './app/(payload)/custom.scss'),
     // カスタマイズコンポーネント
     components: {
       Nav: '@/components/admin/CustomNav/index',
@@ -36,8 +37,31 @@ export default buildConfig({
         },
       },
     },
+    // LivePreview機能
+    livePreview: {
+      breakpoints: [
+        {
+          label: "Mobile",
+          name: "mobile",
+          width: 375,
+          height: 667,
+        },
+        {
+          label: "Tablet",
+          name: "tablet",
+          width: 768,
+          height: 1024,
+        },
+        {
+          label: "Desktop",
+          name: "desktop",
+          width: 1440,
+          height: 900,
+        },
+      ],
+    },
   },
-  collections: [Users, Posts, Media, Likes, Comments],
+  collections: [Users, Posts, Media, Likes, Comments, Pages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

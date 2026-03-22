@@ -34,7 +34,7 @@ export default buildConfig({
     },
     //　下記追加
     // @ts-expect-error: CSSはPayload v3の型定義には含まれていませんが、実行時には動作します。
-    css: path.resolve(__dirname, './app/(payload)/custom.scss'),
+    css: path.resolve(dirname, './app/(payload)/custom.scss'),
   },
   collections: [Users, Posts, Media, Likes, Comments],
   {省略}
@@ -61,7 +61,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     // @ts-expect-error: CSSはPayload v3の型定義には含まれていませんが、実行時には動作します。
-    css: path.resolve(__dirname, './app/(payload)/custom.scss'),
+    css: path.resolve(dirname, './app/(payload)/custom.scss'),
     //　下記追加
     // カスタマイズコンポーネント
     components: {

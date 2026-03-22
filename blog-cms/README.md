@@ -15,4 +15,8 @@ npm i --save-dev @types/nodemailer
 
 # 8.AI記事自動生成機能
 npm install @langchain/google-genai @langchain/core langchain
+
+# 10.LivePrevews機能パターン1
+npm install dompurify jsdom
+npm install -D @types/dompurify @types/jsdom
 ```

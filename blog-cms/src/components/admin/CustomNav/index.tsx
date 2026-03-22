@@ -18,6 +18,7 @@ const COLLECTION_LINKS = [
   { label: 'Likes', href: '/admin/collections/likes' },
   { label: 'Media', href: '/admin/collections/media' },
   { label: 'Users', href: '/admin/collections/users' },
+  { label: 'Pages', href: '/admin/collections/pages' },
 ] as const
 const SETTING_LINKS = [
   { label: 'Setting', href: '/admin/account' },

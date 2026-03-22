@@ -94,3 +94,8 @@ blog-cms/
 ## 【Demo】フロント画面
 
 [![フロント画面](https://i.gyazo.com/77357118903374fab014b1f663dfe6ad.gif)](https://gyazo.com/77357118903374fab014b1f663dfe6ad)
+
+
+## 【Demo】LivePreview機能（パターン１）
+
+[![LivePreview機能1](https://i.gyazo.com/1bfc992af9879af5164df65037d4ea8c.gif)](https://gyazo.com/1bfc992af9879af5164df65037d4ea8c)

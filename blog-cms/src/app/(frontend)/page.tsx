@@ -41,8 +41,8 @@ export default async function HomePage() {
           <Link href="/admin/collections/posts?depth=1&limit=10">
             <SidebarItem icon={<IconHome />} label="記事管理" active />
           </Link>
-          <Link href="#">
-            <SidebarItem icon={<IconCalendar />} label="カレンダー" />
+          <Link href="/pages">
+            <SidebarItem icon={<IconCalendar />} label="ページ一覧" />
           </Link>
           <p className="px-5 py-2 mt-2 text-[10px] font-semibold text-white/40 tracking-widest uppercase">設定</p>
           <Link href="/admin">
@@ -128,7 +128,7 @@ export default async function HomePage() {
                                 {formatDate(post.createdAt)}
                               </span>
                               <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-px rounded bg-[#e8f0fb] text-[#1f76c8] border border-[#c5d9f5] tracking-wide">
-                              {formatDate(post.updatedAt)} 更新
+                                {formatDate(post.updatedAt)} 更新
                               </span>
                             </div>
                             {/* Title */}
