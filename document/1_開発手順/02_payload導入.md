@@ -42,8 +42,14 @@ export default {
 
 ### globals.cssなどにTailwindを読み込ませる
 
-- 【新規作成】src\app\(frontend)\globals.css
-  - [サンプル](./sample/globals.css)
+- 【新規作成】blog-cms\src\app\(frontend)\globals.css
+  - [globals.css](../../blog-cms/src/app/(frontend)/globals.css)
+
+- 【新規作成】blog-cms\src\app\(frontend)\variables.css
+  - [variables.css](../../blog-cms/src/app/(frontend)/variables.css)
+
+上記ファイルは下記のファイルを基に作成
+- [サンプル](./sample/globals.css)
 
 ## 2-3.shadcn/ui の導入
 

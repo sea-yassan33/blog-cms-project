@@ -25,6 +25,17 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    // @ts-expect-error: CSSはPayload v3の型定義には含まれていませんが、実行時には動作します。
+    css: path.resolve(__dirname, './app/(payload)/custom.scss'),
+    // カスタマイズコンポーネント
+    components: {
+      Nav: '@/components/admin/CustomNav/index',
+      views: {
+        dashboard: {
+          Component: '@/components/admin/CustomDashboard/index',
+        },
+      },
+    },
   },
   collections: [Users, Posts, Media, Likes, Comments],
   editor: lexicalEditor(),

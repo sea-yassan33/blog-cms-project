@@ -1,0 +1,13 @@
+/* CSS変数だけを共有（preflight・@layer base は読み込まない）*/
+@import '../(frontend)/variables.css';
+
+/* Tailwind は preflight を除いてユーティリティだけ読み込む */
+@layer theme {
+  @import "tailwindcss/theme";
+}
+@layer utilities {
+  @import "tailwindcss/utilities";
+}
+
+/* Payload は .dark クラスではなく data-theme 属性でダークモードを制御する */
+@custom-variant dark ([data-theme='dark'] &);

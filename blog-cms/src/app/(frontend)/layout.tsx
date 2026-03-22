@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/app/(frontend)/globals.css";
+import "@/app/(frontend)/variables.css"
 
 export const metadata: Metadata = {
   title: "blogCMS|ブログCMS",
