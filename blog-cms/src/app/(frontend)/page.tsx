@@ -38,13 +38,13 @@ export default async function HomePage() {
         {/* Nav */}
         <nav className="py-3 flex-1">
           <p className="px-5 py-2 text-[10px] font-semibold text-white/40 tracking-widest uppercase">メニュー</p>
-          <Link href="/admin/collections/posts?depth=1&limit=10">
-            <SidebarItem icon={<IconHome />} label="記事管理" active />
-          </Link>
           <Link href="/pages">
             <SidebarItem icon={<IconCalendar />} label="ページ一覧" />
           </Link>
-          <p className="px-5 py-2 mt-2 text-[10px] font-semibold text-white/40 tracking-widest uppercase">設定</p>
+          <Link href="/articles">
+            <SidebarItem icon={<IconCalendar />} label="記事一覧" />
+          </Link>
+          <p className="px-5 py-2 mt-2 text-[10px] font-semibold text-white/40 tracking-widest uppercase">コンテンツ管理</p>
           <Link href="/admin">
             <SidebarItem icon={<IconSettings />} label="管理画面" />
           </Link>
@@ -54,7 +54,7 @@ export default async function HomePage() {
       <div className="ml-[220px] flex-1 flex flex-col">
         {/* Top bar */}
         <header className="sticky top-0 z-40 bg-white border-b border-[#dde0e3] h-12 px-6 flex items-center justify-between">
-          <span className="text-[15px] font-semibold">📄 記事タイムライン</span>
+          <span className="text-[15px] font-semibold">📄 ブログタイムライン</span>
           <div className="flex items-center gap-3">
             <span className="text-xs text-[#6b7280]">全 {posts.totalDocs} 件</span>
             <Link

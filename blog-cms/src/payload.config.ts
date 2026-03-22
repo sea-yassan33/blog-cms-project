@@ -13,6 +13,7 @@ import { Media } from './collections/Media'
 import { Likes } from './collections/Likes'
 import { Comments } from './collections/Comments'
 import { Pages } from './collections/Pages'
+import { Articles } from './collections/Articles'
 // 以下：英語と日本語を使える様にモジュール読み込ませる
 import { en } from '@payloadcms/translations/languages/en'
 import { ja } from '@payloadcms/translations/languages/ja'
@@ -61,7 +62,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Posts, Media, Likes, Comments, Pages],
+  collections: [Users, Posts, Media, Likes, Comments, Pages, Articles],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

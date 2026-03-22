@@ -18,6 +18,7 @@
 - 【管理画面】
   - 管理画面での記事作成（Payload Admin UI）
   - AIによる記事自動生成機能
+  - LivePreview機能
 - 【フロント】
   - フロント画面での記事一覧・詳細表示
   - 認証済みユーザーによる「イイね」機能
@@ -40,6 +41,7 @@ blog-cms/
 │   │   │   ├── variables.css    # カスタマイズCSS
 │   │   │   ├── layout.tsx
 │   │   │   └── page.tsx         # 記事一覧ページ
+│   │   │    # ※　articles・pages配下省略 #
 │   │   ├── (payload)/           # Payload 管理画面（自動生成）
 │   │   │   └── admin/
 │   │   │   ├── custom.scss      # taillwindCSS読み込み
@@ -52,11 +54,13 @@ blog-cms/
 │   │   │   ├── likes/
 │   │   │__ │   └── route.ts     # いいねAPI-Route
 │   ├── collections/
-│   │   ├── Users.ts
-│   │   ├── Posts.ts
-│   │   ├── Media.ts
+│   │   ├── Articles.ts
+│   │   ├── Comments.ts
 │   │   ├── Likes.ts
-│   │   └── Comments.ts
+│   │   ├── Media.ts
+│   │   ├── Pages.ts
+│   │   ├── Posts.ts
+│   │   └── Users.ts
 │   ├── components/
 │   │   ├── admin/
 │   │   │   ├── AIGenerateButtonGenerateButton/
@@ -69,6 +73,7 @@ blog-cms/
 │   │   │   ├──  LikeButton.tsx
 │   │   │   ├──  CommentSection.tsx
 │   │   │__ └──  richText.tsx
+│   │   　   # ※　その他コンポーネント省略 #
 │   └── payload.config.ts         # CMS設定ファイル
 ├── .env
 ├── package.json
@@ -86,16 +91,20 @@ blog-cms/
 
 - [開発手順目次](./document/1_開発手順/開発手順目次.md)
 
-## 【Demo】管理画面（Postsコレクション）
+## 【Demo】管理画面（AIによる記事自動生成機能）
 
 [![管理画面](https://i.gyazo.com/1cd2bb940dc685cc36b4c51555c021cb.gif)](https://gyazo.com/1cd2bb940dc685cc36b4c51555c021cb)
 
 
-## 【Demo】フロント画面
+## 【Demo】フロント画面（いいね・コメント機能）
 
 [![フロント画面](https://i.gyazo.com/77357118903374fab014b1f663dfe6ad.gif)](https://gyazo.com/77357118903374fab014b1f663dfe6ad)
 
 
-## 【Demo】LivePreview機能（パターン１）
+## 【Demo】LivePreview機能（パターン１・HTML形式）
 
 [![LivePreview機能1](https://i.gyazo.com/1bfc992af9879af5164df65037d4ea8c.gif)](https://gyazo.com/1bfc992af9879af5164df65037d4ea8c)
+
+## 【Demo】LivePreview機能（パターン２・リッチテキスト形式）
+
+[![LivePreview機能2](https://i.gyazo.com/fdb472ef740338fd04dc33132c28e603.gif)](https://gyazo.com/fdb472ef740338fd04dc33132c28e603)

@@ -8,10 +8,13 @@ export default function Header() {
         </Link>
         <nav>
           <Link href="/" className="text-sm hover:underline mx-2">
-            記事一覧
+            ブログ一覧（HOME）
           </Link>
           <Link href="/pages" className="text-sm hover:underline mx-2">
             ページ一覧
+          </Link>
+          <Link href="/articles" className="text-sm hover:underline mx-2">
+            記事一覧
           </Link>
           <Link href="/admin" className="text-sm hover:underline mx-2">
             管理画面

@@ -1,28 +1,19 @@
-# 10_LivePreview機能（HTML形式）の実装
+# 11_LivePreview機能（リッチテキスト形式）の実装
 
-- 管理画面にHTML形式でのページコンテンツを作成する方法
+- 管理画面にてリッチテキストでページコンテンツを作成する方法
 
-## 10-1.必要なモジュールをインストール
-
-```sh
-npm install dompurify jsdom
-npm install -D @types/dompurify @types/jsdom
-```
-
-## 10-2.PagesCollectionの作成
-
-- 【新規】blog-cms\src\collections\Pages.ts
+## 11-1.ArticlesCollectionの作成
 
 ```ts
 import type { CollectionConfig } from "payload";
 
-export const Pages: CollectionConfig = {
-  slug: "pages",
+export const Articles: CollectionConfig = {
+  slug: "articles",
   admin: {
     useAsTitle: "title",
     livePreview: {
       url: ({ data }) =>
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/pages/${data?.slug}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/articles/${data?.slug}`,
     },
   },
   fields: [
@@ -44,12 +35,8 @@ export const Pages: CollectionConfig = {
     },
     {
       name: "content",
-      type: "textarea",
-      label: "コンテンツ（JSX/HTML）",
-      admin: {
-        description: "HTMLタグやJSXに近い構造で入力してください",
-        rows: 20,
-      },
+      type: "richText",
+      label: "コンテンツ",
     },
     {
       name: "description",
@@ -75,13 +62,13 @@ export const Pages: CollectionConfig = {
 };
 ```
 
-## 10-3.payload.config.tsの更新
+## 11-2.payload.config.tsの更新
 
 - 【追加】blog-cms\src\payload.config.ts
 
 ```ts
 // 下記追加
-import { Pages } from './collections/Pages'
+import { Articles } from './collections/Articles'
 
 export default buildConfig({
   admin: {
@@ -90,7 +77,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     {省略}
-    // LivePreview機能追加
+    // LivePreview機能追加(10_LivePreview機能パターン1で実装済み)
     livePreview: {
       breakpoints: [
         {
@@ -115,125 +102,86 @@ export default buildConfig({
     },
   },
   // コレクションを追加
-  collections: [Users, Posts, Media, Likes, Comments, Pages],
+  collections: [Users, Posts, Media, Likes, Comments, Pages, Articles],
   {省略}
 })
 
 ```
 
-## 10-4.型の自動生成
+## 11-3.型の自動生成
 
 ```sh
 npx payload generate:types
 ```
 
-## 10-5.LivePreviewフックの作成
+## 11-4. クライアントコンポーネントの作成
 
-- 【新規】blog-cms\src\hooks\useLivePreview.ts
-
-```ts
-"use client";
-
-import { useEffect, useState } from "react";
-
-type LivePreviewMessage<T> = {
-  data: T;
-  fieldSchemaJSON?: string;
-};
-
-export function useLivePreview<T>(props: {
-  initialData: T;
-  serverURL: string;
-  depth?: number;
-}): { data: T; isLoading: boolean } {
-  const { initialData, serverURL } = props;
-  const [data, setData] = useState<T>(initialData);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent<LivePreviewMessage<T>>) => {
-      if (event.origin !== serverURL) return;
-
-      if (event.data && typeof event.data === "object" && "data" in event.data) {
-        setData(event.data.data);
-        setIsLoading(false);
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-
-    // Payload Admin に準備完了を通知
-    window.parent?.postMessage(
-      { type: "PAYLOAD_LIVE_PREVIEW_READY" },
-      serverURL
-    );
-
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
-  }, [serverURL]);
-
-  return { data, isLoading };
-}
-```
-
-## 10-6.クライアントコンポーネント作成
-
-- 【新規】blog-cms\src\app\(frontend)\pages\[slug]\page.client.tsx
+- 【新規】blog-cms\src\app\(frontend)\pages\articles\[slug]\page.client.tsx
 
 ```tsx
 "use client";
 
 import { useLivePreview } from "@/hooks/useLivePreview";
-import { useEffect, useState } from "react";
-import type { Page } from "@/payload-types";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import type { Article } from "@/payload-types";
 
 type Props = {
-  initialData: Page;
+  initialData: Article;
   serverURL: string;
 };
 
 export function PageClient({ initialData, serverURL }: Props) {
-  const { data } = useLivePreview<Page>({ initialData, serverURL });
-  const [sanitizedContent, setSanitizedContent] = useState("");
-
-  useEffect(() => {
-    // クライアント側でのみ DOMPurify を動かす
-    const loadAndSanitize = async () => {
-      const DOMPurify = (await import("dompurify")).default;
-      setSanitizedContent(DOMPurify.sanitize(data.content ?? ""));
-    };
-    loadAndSanitize();
-  }, [data.content]);
+  const { data } = useLivePreview<Article>({
+    initialData,
+    serverURL,
+  });
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-6">{data.title}</h1>
-      {sanitizedContent && (
-        <div
-          className="prose prose-neutral max-w-none"
-          dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-        />
+      <div className="mb-4 flex items-center gap-2">
+        <Badge
+          variant={data._status === "published" ? "default" : "secondary"}
+        >
+          {data._status === "published" ? "公開中" : "下書き"}
+        </Badge>
+        {data.publishedAt && (
+          <span className="text-sm text-muted-foreground">
+            {new Date(data.publishedAt).toLocaleDateString("ja-JP")}
+          </span>
+        )}
+      </div>
+
+      <h1 className="text-4xl font-bold mb-4 tracking-tight">{data.title}</h1>
+
+      {data.description && (
+        <p className="text-muted-foreground text-lg mb-6">{data.description}</p>
       )}
+
+      <Separator className="mb-8" />
+
+      <div className="prose prose-neutral max-w-none">
+        {/* RichText の表示（Lexical エディタのレンダリング） */}
+        <p className="text-base leading-relaxed">
+          {typeof data.content === "string"
+            ? data.content
+            : "コンテンツがここに表示されます。"}
+        </p>
+      </div>
     </main>
   );
 }
 ```
 
-```txt
-※セキュリティの注意※
-dangerouslySetInnerHTML は 管理画面から入力した内容のみに使う前提です。
-セキュリティ上、DOMPurifyでサニタイズを挟みます。
-```
+## 11-5. LivePreviewページコンポーネントの作成
 
-## 10-7.LivePreviewページコンポーネントの作成
-
-- 【新規】src/app/(frontend)/pages/[slug]/page.tsx
+- src/app/(frontend)/articles/[slug]/page.tsx
 
 ```tsx
 import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
+import Header from '@/components/home/Header'
 import { PageClient } from "./page.client";
 
 type Props = {
@@ -245,14 +193,14 @@ type Props = {
   }>;
 };
 
-export default async function Page({ params, searchParams }: Props) {
+export default async function Article({ params, searchParams }: Props) {
   const { slug } = await params;
   const { preview } = await searchParams;
 
   const payload = await getPayload({ config: configPromise });
 
   const result = await payload.find({
-    collection: "pages",
+    collection: "articles",
     where: {
       slug: {
         equals: slug,
@@ -262,40 +210,43 @@ export default async function Page({ params, searchParams }: Props) {
     limit: 1,
   });
 
-  const page = result.docs?.[0];
+  const article = result.docs?.[0];
 
-  if (!page) {
+  if (!article) {
     return notFound();
   }
 
   return (
+    <>
+    <Header />
     <PageClient
-      initialData={page}
+      initialData={article}
       serverURL={process.env.NEXT_PUBLIC_SERVER_URL || ""}
-    />
+      />
+    </>
   );
 }
 ```
 
-## 10-8.ページ一覧の作成
+## 11-6．Articls一覧ページ作成
 
-- 【新規】blog-cms\src\app\(frontend)\pages\page.tsx
+- blog-cms\src\app\(frontend)\articles\page.tsx
 
 ```tsx
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { Clock } from 'lucide-react'
-import PageCard from '@/components/pages/PageCard'
+import ArticleCard from '@/components/articles/articleCard'
 import EmptyState from '@/components/pages/EmptyState'
 import Header from '@/components/home/Header'
 
 export const revalidate = 60 // 60秒ごとに再生成
 
-export default async function PagesPage() {
+export default async function ArticlesPage() {
   // pageデータを取得
   const payload = await getPayload({ config })
   const result = await payload.find({
-    collection: "pages",
+    collection: "articles",
     where: {
       _status: {
         equals: "published",
@@ -303,7 +254,7 @@ export default async function PagesPage() {
     },
     limit: 10,
   });
-  const pages = result.docs;
+  const articles = result.docs;
   return (
     <>
       <Header />
@@ -313,22 +264,22 @@ export default async function PagesPage() {
           <div className="mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-medium text-slate-500 mb-5 shadow-sm">
               <Clock className="w-3.5 h-3.5" />
-              <span>公開中のページ一覧</span>
+              <span>公開中の記事一覧</span>
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight mb-3">
-              Pages
+              Articles
             </h1>
             <p className="text-slate-500 text-sm sm:text-base leading-relaxed">
-              公開中のページを一覧表示しています。各ページをクリックして内容を確認できます。
+              公開中の記事を一覧表示しています。各ページをクリックして内容を確認できます。
             </p>
           </div>
           {/* 統計バー */}
-          {pages.length > 0 && (
+          {articles.length > 0 && (
             <div className="flex items-center gap-4 mb-6 px-4 py-3 rounded-xl bg-white border border-slate-100 shadow-sm">
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-emerald-400" />
                 <span className="text-xs text-slate-500 font-medium">
-                  {pages.length} ページ公開中
+                  {articles.length} 記事公開中
                 </span>
               </div>
               <div className="h-4 w-px bg-slate-200" />
@@ -338,22 +289,22 @@ export default async function PagesPage() {
             </div>
           )}
           {/* ページリスト / 空状態 */}
-          {pages.length === 0 ? (
+          {articles.length === 0 ? (
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm">
               <EmptyState />
             </div>
           ) : (
             <div className="flex flex-col gap-3">
-              {pages.map((page, index) => (
-                <PageCard
-                  key={page.id}
+              {articles.map((article, index) => (
+                <ArticleCard
+                  key={article.id}
                   page={{
-                    id: page.id,
-                    title: page.title,
-                    slug: page.slug,
-                    description: page.description ?? null,
-                    publishedAt: page.publishedAt
-                      ? String(page.publishedAt)
+                    id: article.id,
+                    title: article.title,
+                    slug: article.slug,
+                    description: article.description ?? null,
+                    publishedAt: article.publishedAt
+                      ? String(article.publishedAt)
                       : null,
                   }}
                   index={index}
@@ -373,8 +324,7 @@ export default async function PagesPage() {
 blog-cms\src\components配下のコードを作成してからページを作成してください。
 ```
 
-
-## 10-9.admin側ページにPageコレクションの導線を作成
+## 11-7.admin側ページにPageコレクションの導線を作成
 
 - 【追加】blog-cms\src\components\admin\CustomNav\index.tsx
 
@@ -390,8 +340,9 @@ const COLLECTION_LINKS = [
   { label: 'Likes', href: '/admin/collections/likes' },
   { label: 'Media', href: '/admin/collections/media' },
   { label: 'Users', href: '/admin/collections/users' },
-  // 下記追加
   { label: 'Pages', href: '/admin/collections/pages' },
+  // 下記追加
+  { label: 'Articles', href: '/admin/collections/articles' },
 ] as const
 const SETTING_LINKS = [
   { label: 'Setting', href: '/admin/account' },
@@ -402,7 +353,7 @@ const SETTING_LINKS = [
 ```sh
 # マイグレーションファイルを生成
 ## npx payload migrate:create --name add_{slug名}
-npx payload migrate:create --name add_pages
+npx payload migrate:create --name add_articles
 
 # DBに適用
 npx payload migrate
