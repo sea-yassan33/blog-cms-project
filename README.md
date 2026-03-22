@@ -36,11 +36,14 @@ blog-cms/
 │   │   ├── (frontend)/          # フロント用ルートグループ
 │   │   │   ├── [slug]/
 │   │   │   │   └── page.tsx     # 記事詳細ページ
-│   │   │   ├── globals.css
+│   │   │   ├── globals.css      # taillwindCSS読み込み
+│   │   │   ├── variables.css    # カスタマイズCSS
 │   │   │   ├── layout.tsx
 │   │   │   └── page.tsx         # 記事一覧ページ
 │   │   ├── (payload)/           # Payload 管理画面（自動生成）
 │   │   │   └── admin/
+│   │   │   ├── custom.scss      # taillwindCSS読み込み
+│   │   │   └── layout.tsx
 │   │   ├── api/
 │   │   │   ├── comments/
 │   │   │   │   └── route.ts     # コメントAPI-Route
@@ -58,6 +61,10 @@ blog-cms/
 │   │   ├── admin/
 │   │   │   ├── AIGenerateButtonGenerateButton/
 │   │   │   │   └── index.tsx     # 記事自動生成ボタン
+│   │   │   ├── CustomDashboard/
+│   │   │   │   └── index.tsx     # 管理画面ダッシュボード
+│   │   │   ├── CustomNav/
+│   │   │   │   └── index.tsx     # 管理画面ナビゲーションバー
 │   │   ├── parts/
 │   │   │   ├──  LikeButton.tsx
 │   │   │   ├──  CommentSection.tsx
@@ -79,7 +86,7 @@ blog-cms/
 
 - [開発手順目次](./document/1_開発手順/開発手順目次.md)
 
-## 【Demo】管理画面
+## 【Demo】管理画面（Postsコレクション）
 
 [![管理画面](https://i.gyazo.com/1cd2bb940dc685cc36b4c51555c021cb.gif)](https://gyazo.com/1cd2bb940dc685cc36b4c51555c021cb)
 
